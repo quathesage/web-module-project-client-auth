@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import Login from './login';
+
 
 const Logout = () => {
   const { push } = useHistory()
@@ -13,10 +13,8 @@ const Logout = () => {
       }
     })
     .then(res => {
+      localStorage.removeItem('token');
       push('/login')
-    })
-    .catch(err => {
-      console.log(err)
     })
   }, [])
 

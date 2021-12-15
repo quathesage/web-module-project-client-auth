@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 
-const Login = (props) => {
+const Login = () => {
   const [credentials, setCredentials] = useState({username:'', password:''});
   const { push } = useHistory();
 
@@ -13,13 +13,13 @@ const Login = (props) => {
     })
   }
 
-  const login = e => {
+  const handleSubmit = e => {
     e.preventDefault();
 
-    const { token } = resp.data
     axios.post('http://localhost:9000/api/login', credentials)
       .then(resp => {
-        localStorage.setItem('token', token);
+        localStorage.setItem('token', resp.data.token);
+        push('/friends');
       })
       .catch(error => {
         console.error(error)
@@ -29,7 +29,7 @@ const Login = (props) => {
   return(
     <div>
       <h1>Login</h1>
-      <form onSubmit={login}>
+      <form onSubmit={handleSubmit}>
         <label>Username</label>
         <input
           type='text'

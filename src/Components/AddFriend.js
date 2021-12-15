@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 const AddFriend = (props) => {
   const [ data, setData ] = useState({name: '', email: ''});
+  const { push } = useHistory();
 
   const handleChange = e => {
     setData({
@@ -11,7 +13,7 @@ const AddFriend = (props) => {
     })
   }
 
-  const submit = e => {
+  const onSubmit = e => {
     e.preventDefault();
 
     axios.post('http://localhost:9000/api/friends', data, {
@@ -21,6 +23,7 @@ const AddFriend = (props) => {
     })
     .then(res => {
       console.log(res)
+      push('/friends');
     })
     .catch(err => {
       console.error(err)
@@ -31,7 +34,7 @@ const AddFriend = (props) => {
     <div>
       <h1>Add A Friend</h1>
 
-      <form onSubmit={submit}>
+      <form onSubmit={onSubmit}>
         <label>Friend Name</label>
         <input
           type='text'
@@ -45,7 +48,7 @@ const AddFriend = (props) => {
         <input
           type='email'
           name='email'
-          value={data.name}
+          value={data.email}
           onChange={handleChange}
         />
         <br/>
