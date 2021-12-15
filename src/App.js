@@ -13,10 +13,10 @@ function App() {
     <div className="App">
       <header>
         <h3>Friends Database</h3>
-          <Link to='/login'>Login</Link>
-          <Link to='/friends'>Friends List</Link>
-          <Link to='/friends/add'>Add Friend</Link>
-          <Link to='/logout'>Logout</Link>
+          <Link className='nav' to='/login'>Login</Link>
+          <Link className='nav' to='/friends'>Friends List</Link>
+          <Link className='nav' to='/friends/add'>Add Friend</Link>
+          <Link className='nav' to='/logout'>Logout</Link>
       </header>
       <Switch>
         <Route exact path='/' component={Login} />
