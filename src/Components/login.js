@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom'
+import axios from 'axios';
 
 const Login = (props) => {
   const [credentials, setCredentials] = useState({username:'', password:''});
+  const { push } = useHistory();
 
-  handleChange = e => {
+  const handleChange = e => {
     setCredentials({
       ...credentials,
       [e.target.name]: e.target.value
@@ -14,9 +17,9 @@ const Login = (props) => {
     e.preventDefault();
 
     const { token } = resp.data
-    axios.get('http://localhost:9000/api/login', credentials)
+    axios.post('http://localhost:9000/api/login', credentials)
       .then(resp => {
-        localStorage.setItem('token', token)
+        localStorage.setItem('token', token);
       })
       .catch(error => {
         console.error(error)
